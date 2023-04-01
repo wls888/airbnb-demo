@@ -1,27 +1,29 @@
-import CSectionHeader from '@/components/c-section-header'
-import CSectionRooms from '@/components/c-section-rooms'
-import { getGoodPriceInfoCreateAction } from '@/store/modules/home'
+import { fetchHomeDataThunk } from '@/store/modules/home'
+import { isNotEmptyObject } from '@/utils/is-not-empty-object'
 import React, { memo, useEffect } from 'react'
 import { shallowEqual, useDispatch, useSelector } from 'react-redux'
 import HomeBanner from './c-cpns/home-banner'
+import HomeLongfor from './c-cpns/home-longfor'
+import HomeSectionV1 from './c-cpns/home-section-v1'
+import HomeSectionV2 from './c-cpns/home-section-v2'
 import { HomeWrapper } from './style'
 
 const Home = memo(() => {
-  const { goodPriceInfo } = useSelector(state => ({ goodPriceInfo: state.home.goodPriceInfo }), shallowEqual);
+  const { goodPriceInfo, highScoreInfo, discountInfo, hotRecommendInfo, longforInfo } = useSelector(state => ({ goodPriceInfo: state.home.goodPriceInfo, highScoreInfo: state.home.highScoreInfo, discountInfo: state.home.discountInfo, hotRecommendInfo: state.home.hotRecommendInfo, longforInfo: state.home.longforInfo }), shallowEqual);
   const dispatch = useDispatch();
-
   useEffect(() => {
-    dispatch(getGoodPriceInfoCreateAction());
+    dispatch(fetchHomeDataThunk());
   }, [dispatch])
 
   return (
     <HomeWrapper>
       <HomeBanner />
       <div className="content">
-        <div className="good-price">
-          <CSectionHeader title={goodPriceInfo?.title} subTitle={'来看看这些受好评的房源吧'} />
-          <CSectionRooms roomList={goodPriceInfo?.list}></CSectionRooms>
-        </div>
+        {isNotEmptyObject(longforInfo) && <HomeLongfor infoData={longforInfo} />}
+        {isNotEmptyObject(discountInfo) && <HomeSectionV2 infoData={discountInfo} />}
+        {isNotEmptyObject(hotRecommendInfo) && <HomeSectionV2 infoData={hotRecommendInfo} />}
+        {isNotEmptyObject(goodPriceInfo) && <HomeSectionV1 infoData={goodPriceInfo} />}
+        {isNotEmptyObject(highScoreInfo) && <HomeSectionV1 infoData={highScoreInfo} />}
       </div>
     </HomeWrapper>
 
