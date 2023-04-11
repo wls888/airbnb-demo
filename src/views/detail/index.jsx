@@ -4,7 +4,8 @@ import { DetailWrapper } from './style'
 const Detail = memo(() => {
   return (
     <DetailWrapper>
-      detail
+      <div className="pictures"></div>
+      <div className="info"></div>
     </DetailWrapper>
   )
 })

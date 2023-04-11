@@ -9,7 +9,6 @@ import CSectionFooter from '@/components/c-section-footer';
 const HomeSectionV2 = memo((props) => {
   const { infoData } = props;
   const tabNames = infoData.dest_address?.map(item => item.name);
-  tabNames.push("abc","cba","ade","dea");
   const initialTabName = Object.keys(infoData.dest_list??{})[0]??"";
   const [currentTabName, setCurrentTabName] = useState(initialTabName);
   const tabClick = useCallback(function (item) {
