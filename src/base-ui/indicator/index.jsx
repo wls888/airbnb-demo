@@ -6,11 +6,10 @@ import { useEffect } from 'react';
 const Indicator = memo((props) => {
   const {selectIndex=0}=props;
   const indicatorRef=useRef();
-
   useEffect(()=>{
     const ele=indicatorRef.current.children[selectIndex];
-    const offsetLeft=ele.offsetLeft;
-    const clientWidth=ele.clientWidth;
+    const offsetLeft=ele?.offsetLeft;
+    const clientWidth=ele?.clientWidth;
     const contentWidth=indicatorRef.current.clientWidth;
     const contentScroll=indicatorRef.current.scrollWidth;
     let distance=offsetLeft+clientWidth/2-contentWidth/2;
@@ -23,7 +22,7 @@ const Indicator = memo((props) => {
 
   return (
     <IndicatorWrapper>
-      <div className="list" ref={indicatorRef}>
+      <div className="indicator-list" ref={indicatorRef}>
         {props.children}
       </div>
     </IndicatorWrapper>

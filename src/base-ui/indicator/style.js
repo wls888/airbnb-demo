@@ -1,10 +1,10 @@
 import styled from "styled-components";
 const IndicatorWrapper = styled.div`
   overflow: hidden;
-  .list {
+  .indicator-list {
     display: flex;
     flex-wrap: nowrap;
-    transition: transform 350ms ease;
+    transition: transform 250ms ease;
     > * {
       flex-shrink: 0;
     }
